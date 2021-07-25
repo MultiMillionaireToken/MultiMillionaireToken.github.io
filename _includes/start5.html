@@ -1,0 +1,88 @@
+
+<html>
+
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/@metamask/legacy-web3@latest/dist/metamask.web3.min.js"></script>
+  </head>
+
+
+  <label for="name">Number of Multi Millionaire Tokens to Buy : </label><input id="name" type="text" />
+
+  <p>
+  You will purchase <span id="MMTnums">____</span> Multi Millionaire Tokens.
+    <br>
+  You will pay <span id="Ethnum">____</span> Etherium. 
+  </p>
+
+<head>
+
+<script type="text/javascript">
+
+  function update_price(){
+    var name = document.getElementById("name").value;
+
+    if (name>0){
+      document.getElementById("MMTnums").innerText = name;
+      document.getElementById("Ethnum").innerText = name/2000 + 0.001;
+    }else{
+      document.getElementById("MMTnums").innerText = 0;
+      document.getElementById("Ethnum").innerText = 0;
+    }
+  }
+
+
+  setInterval(update_price,400)
+</script>
+</head>
+
+
+
+  <body>
+    <div>
+      <button class="pay-button">Purchase</button>
+      <div id="status"></div>
+    </div>
+
+    <script type="text/javascript">
+      window.addEventListener('load', async () => {
+        if (window.ethereum) {
+          window.web3 = new Web3(ethereum);
+          try {
+            await ethereum.enable();
+            initPayButton()
+          } catch (err) {
+            $('#status').html('User denied account access', err)
+          }
+        } else if (window.web3) {
+          window.web3 = new Web3(web3.currentProvider)
+          initPayButton()
+        } else {
+          $('#status').html('<p style="color: red;"> No Metamask (or other Web3 Provider) installed. Please install or enable a Web3 Provider. </p>')
+        }
+      })
+
+      const initPayButton = () => {
+        $('.pay-button').click(() => {
+          // paymentAddress is where funds will be send to
+          const paymentAddress = '0xa94b2cB45F6D508C0bec9F6350eBfe332d29F435'
+          const amountEth = document.getElementById("Ethnum").innerText
+
+          web3.eth.sendTransaction({
+            to: paymentAddress,
+            value: web3.toWei(amountEth, 'ether')
+          }, (err, transactionId) => {
+            if  (err) {
+              console.log('Payment failed', err)
+              $('#status').html('<p style="color: red;">Payment failed</p>')
+            } else {
+              console.log('Payment successful', transactionId)
+              $('#status').html('<p>style="color: green;"Payment successful</p>')
+            }
+          })
+        })
+      }
+    </script>
+  </body>
+  <br>
+</html>
