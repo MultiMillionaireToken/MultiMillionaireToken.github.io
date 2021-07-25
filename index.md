@@ -43,7 +43,7 @@ Please allow six hours before the MMT is sent to your account.
 
 You can view MMT on etherscan [here](https://etherscan.io/token/0x1f20e5880d8896ece03a690328a16cafe88c6e88). If you wish to join project, have any questions or encounter any issues please get in touch:
 
-Email MultiMillionaireToken@gmail.com: MultiMillionaireToken@gmail.com
+Email: MultiMillionaireToken@gmail.com
 
 [Twitter](https://twitter.com/MultiMillToken)
 
